@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSC ICT Chapter 4</title>
+    
+    <!-- Google Fonts (Noto Sans Bengali) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- বেসিক রিসেট এবং গ্লোবাল স্টাইল --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background-color: #f8faff; /* একটি খুব হালকা নীল-সাদা ব্যাকগ্রাউন্ড */
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        /* --- গ্রেডিয়েন্ট টেক্সট --- */
+        .gradient-text {
+            background: linear-gradient(90deg, #4F46E5 0%, #E91E63 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* --- বাটন স্টাইল --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #4F46E5 0%, #6A11CB 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+        }
+
+        .btn-secondary {
+            background: #eef2f9;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-3px);
+        }
+
+        /* --- নেভিগেশন বার --- */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #4F46E5;
+        }
+        .logo span {
+            color: #E91E63;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu li a:hover, .nav-menu li a.active {
+            color: #4F46E5;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* --- হিরো সেকশন --- */
+        #home {
+            background: #fff;
+            padding: 80px 0;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #home .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ব্যাকগ্রাউন্ড শেপ */
+        #home::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #4f46e5, #c4b5fd);
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(50px);
+            animation: pulse 5s infinite ease-in-out;
+        }
+        #home::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #e91e63, #fbcfe8);
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(60px);
+            animation: pulse 7s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        #home p {
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+            color: #555;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* --- ফিচার সেকশন --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid #4F46E5;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* বিভিন্ন কার্ডের জন্য ভিন্ন বর্ডার কালার */
+        .feature-card:nth-child(2) { border-color: #E91E63; }
+        .feature-card:nth-child(3) { border-color: #10B981; }
+        .feature-card:nth-child(4) { border-color: #0EA5E9; }
+        .feature-card:nth-child(5) { border-color: #8B5CF6; }
+        .feature-card:nth-child(6) { border-color: #F59E0B; }
+
+        /* --- প্রাইসিং সেকশন --- */
+        #pricing {
+            background: #fff;
+        }
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            background: #f8faff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 35px;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card-popular {
+            border: 2px solid #4F46E5;
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.1);
+            transform: scale(1.03);
+        }
+        
+        .pricing-card .plan-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4F46E5;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-card .plan-price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 5px;
+        }
+        .pricing-card .plan-price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #718096;
+        }
+        .pricing-card .plan-desc {
+            color: #718096;
+            margin-bottom: 25px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4a5568;
+        }
+        
+        .pricing-card ul li::before {
+            content: '✓';
+            color: #10B981;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .pricing-card-disabled .btn {
+            background: #e2e8f0;
+            color: #9ca3af;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .pricing-card-disabled .btn:hover {
+            transform: none;
+        }
+
+        /* --- অ্যাপ ডাউনলোড (CTA) সেকশন --- */
+        #cta {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            text-align: center;
+        }
+        #cta h2 {
+            color: #fff;
+            font-size: 2.8rem;
+        }
+        #cta p {
+            font-size: 1.15rem;
+            color: #e0e7ff;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+        #cta .btn-primary {
+            background: #fff;
+            color: #4F46E5;
+            font-size: 1.1rem;
+            padding: 15px 35px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        #cta .btn-primary:hover {
+            background: #f0f2ff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+
+        /* --- ফুটার সেকশন --- */
+        #footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 50px 0 30px 0;
+            text-align: center;
+        }
+        #footer .logo {
+            color: #fff;
+        }
+        #footer p {
+            color: #9ca3af;
+            max-width: 450px;
+            margin: 15px auto;
+        }
+        .social-links {
+            margin: 25px 0;
+        }
+        .social-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin: 0 12px;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #fff;
+        }
+        
+        .footer-contact {
+            margin-bottom: 25px;
+        }
+        .footer-contact a {
+            color: #9ca3af;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+        .copyright {
+            border-top: 1px solid #374151;
+            padding-top: 25px;
+            font-size: 0.9rem;
+        }
+
+        /* --- রেসপন্সিভ ডিজাইন --- */
+        @media (max-width: 768px) {
+            h2 { font-size: 2rem; }
+            #home h1 { font-size: 2.5rem; }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+                padding: 10px 0;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                text-align: center;
+            }
+            .nav-menu li a {
+                display: block;
+                padding: 12px 20px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card-popular {
+                transform: scale(1); /* মোবাইলে বড় দেখাবে না */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- হেডার এবং নেভিগেশন বার -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#home" class="logo">ICT<span>  Chapter.4</span></a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="active">হোম</a></li>
+                <li><a href="#features">ফিচারসমূহ</a></li>
+                <li><a href="#pricing">মূল্য তালিকা</a></li>
+                <li><a href="#cta">অ্যাপ ডাউনলোড</a></li>
+                <li><a href="#footer">যোগাযোগ</a></li>
+            </ul>
+            
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- হিরো সেকশন -->
+    <header id="home">
+        <div class="container">
+            <h1>
+                HSC ICT <span class="gradient-text">চতুর্থ অধ্যায়ে</span> আর কোনো ভয় নয়!
+            </h1>
+            <p>
+                MCQ, সৃজনশীল প্রশ্ন (CQ), সহজ ও কঠিন কুইজ, PDF এবং AI জেনারেটেড নোটস—সবকিছু এক জায়গায়, সম্পূর্ণ বিনামূল্যে!
+            </p>
+            <div class="hero-buttons">
+                <a href="https://github.com/9hdalimransp/ICT-4/raw/refs/heads/main/ICT4.apk" target="_blank" class="btn btn-primary">
+                    অ্যাপ ডাউনলোড করুন
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    ফিচারগুলো দেখুন
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ফিচারসমূহ সেকশন -->
+    <section id="features">
+        <div class="container">
+            <h2>আপনার প্রস্তুতির জন্য যা যা থাকছে</h2>
+            
+            <div class="features-grid">
+                <!-- ফিচার কার্ড ১: MCQ -->
+                <div class="feature-card">
+                    <div class="icon">📝</div>
+                    <h3>MCQ প্রশ্ন </h3>
+                    <p>হাজারো গুরুত্বপূর্ণ MCQ প্রশ্ন ও উত্তর। নিজেকে যাচাই করতে দিন সময়ভিত্তিক মডেল টেস্ট।</p>
+                </div>
+
+                <!-- ফিচার কার্ড ২: CQ -->
+                <div class="feature-card">
+                    <div class="icon">🧠</div>
+                    <h3>সৃজনশীল (CQ) প্রশ্ন</h3>
+                    <p>বোর্ড প্রশ্ন, সেরা কলেজের প্রশ্ন এবং টপিকভিত্তিক সৃজনশীল প্রশ্ন ও সহজ সমাধান।</p>
+                </div>
+
+                <!-- ফিচার কার্ড ৩: কুইজ -->
+                <div class="feature-card">
+                    <div class="icon">🎮</div>
+                    <h3>ইন্টারেক্টিভ কুইজ</h3>
+                    <p>সহজ এবং কঠিন লেভেলের কুইজ খেলে নিজের প্রস্তুতিকে আরও মজবুত ও মজাদার করুন।</p>
+                </div>
+
+                <!-- ফিচার কার্ড ৪: PDF -->
+                <div class="feature-card">
+                    <div class="icon">📚</div>
+                    <h3>বিভিন্ন লেখকের PDF</h3>
+                    <p>জনপ্রিয় ও বোর্ড অনুমোদিত লেখকের বইয়ের PDF ও লেকচার শিট এক জায়গায়।</p>
+                </div>
+
+                <!-- ফিচার কার্ড ৫: AI নোট -->
+                <div class="feature-card">
+                    <div class="icon">💡</div>
+                    <h3>AI জেনারেটেড নোটস</h3>
+                    <p>যেকোনো কঠিন টপিক বুঝতে সমস্যা? আমাদের AI তৈরি নোট দেবে আপনার জন্য সহজবোধ্য সমাধান।</p>
+                </div>
+
+                <!-- ফিচার কার্ড ৬: দরকারি তথ্য -->
+                <div class="feature-card">
+                    <div class="icon">ℹ️</div>
+                    <h3>দরকারি তথ্য ও টিপস</h3>
+                    <p>পরীক্ষার জন্য গুরুত্বপূর্ণ তথ্য, ট্যাগ, অ্যাট্রিবিউট এবং মনে রাখার সহজ কৌশল।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- মূল্য তালিকা সেকশন -->
+    <section id="pricing">
+        <div class="container">
+            <h2>আপনার জন্য সেরা প্ল্যান</h2>
+            
+            <div class="pricing-grid">
+                <!-- ফ্রি প্ল্যান -->
+                <div class="pricing-card pricing-card-popular">
+                    <div class="plan-name">ফ্রি প্ল্যান</div>
+                    <div class="plan-price">৳০ <span>/ আজীবন</span></div>
+                    <p class="plan-desc">HSC ICT Chapter 4 এর জন্য</p>
+                    <ul>
+                        <li>চতুর্থ অধ্যায়ের সকল MCQ</li>
+                        <li>চতুর্থ অধ্যায়ের সকল CQ</li>
+                        <li>সকল কুইজ ও পরীক্ষা</li>
+                        <li>PDF ও AI নোটস (সীমিত)</li>
+                    </ul>
+                    <a href="https://github.com/9hdalimransp/ICT-4/raw/refs/heads/main/ICT4.apk" target="_blank" class="btn btn-primary">বিনামূল্যে শুরু করুন</a>
+                </div>
+
+                <!-- প্রিমিয়াম প্ল্যান -->
+                <div class="pricing-card pricing-card-disabled">
+                    <div class="plan-name" style="color: #6b7280;">প্রিমিয়াম</div>
+                    <div class="plan-price">শীঘ্রই আসছে...</div>
+                    <p class="plan-desc">সকল বিষয় ও অধ্যায়ের জন্য</p>
+                    <ul>
+                        <li>ICT সকল অধ্যায়ের অ্যাক্সেস</li>
+                        <li>অন্যান্য সকল বিষয়ের কনটেন্ট</li>
+                        <li>আনলিমিটেড PDF ও AI নোটস</li>
+                        <li>লাইভ সাপোর্ট ও বিশেষ গাইডলাইন</li>
+                    </ul>
+                    <button class="btn" disabled>শীঘ্রই আসছে</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- অ্যাপ ডাউনলোড CTA সেকশন -->
+    <section id="cta">
+        <div class="container">
+            <h2>যেকোনো সময়, যেকোনো জায়গায় পড়ুন</h2>
+            <p>
+                সেরা অভিজ্ঞতা পেতে আজই আমাদের  "HSC ICT Chapter 4" মোবাইল অ্যাপটি ডাউনলোড করুন। আপনার সম্পূর্ণ প্রস্তুতি এখন আপনার হাতের মুঠোয়।
+            </p>
+            <a href="https://github.com/9hdalimransp/ICT-4/raw/refs/heads/main/ICT4.apk" target="_blank" class="btn btn-primary">
+                ডাউনলোড করতে ক্লিক করুন
+            </a>
+        </div>
+    </section>
+
+    <!-- ফুটার -->
+    <footer id="footer">
+        <div class="container">
+            <a href="#home" class="logo">ICT<span>  Chapter .4</span></a>
+            <p>
+                HSC শিক্ষার্থীদের জন্য একটি পূর্ণাঙ্গ আইসিটি প্রস্তুতি প্ল্যাটফর্ম। আমরা বিশ্বাস করি মানসম্মত শিক্ষা হোক সবার জন্য।
+            </p>
+            
+            <div class="footer-contact">
+                <!-- এখানে আপনার জিমেইল লিংক দিন -->
+                <a href="mailto:nxalimrans@gmail.com"></a>nxalimrans@gmail.com</div>
+
+            <div class="social-links">
+                <!-- এখানে আপনার ফেইসবুক লিংক দিন -->
+                <a href="https://facebook.com/nxalimrans" target="_blank" title="Facebook">
+                    <!-- ফেসবুক আইকন (SVG) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg>
+                </a>
+                <!-- ইউটিউব বা অন্য লিংকও যোগ করতে পারেন -->
+            </div>
+            
+            <div class="copyright">
+                © ২০২৫ ICT4 ( NX AL IMRAN S) সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- মোবাইল মেনু টগল ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // --- মেনু লিংকে ক্লিক করলে মেনু বন্ধ করা ---
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // --- স্ক্রল করলে নেভিগেশন লিংকের Active স্টেট পরিবর্তন ---
+        const sections = document.querySelectorAll('section, header');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 70) { // 70px হচ্ছে নেভিগেশন বারের উচ্চতা
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
